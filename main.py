@@ -5,9 +5,8 @@ from database import engine, Base, SessionLocal
 import models
 import schemas
 
-# Crea las tablas automáticamente
-Base.metadata.drop_all(bind=engine)
-Base.metadata.create_all(bind=engine)
+# NOTA: Ya no ejecutamos drop_all ni create_all aquí para evitar 
+# que el servidor se congele al intentar conectar con la base de datos en el arranque.
 
 app = FastAPI(
     title="tienda de suplementos D&K Training",
@@ -37,7 +36,6 @@ def read_root():
 # --- RUTA POST PARA CREAR PRODUCTOS ---
 @app.post("/productos/")
 def crear_producto(producto: schemas.ProductoCreate, db: Session = Depends(get_db)):
-    # Creamos una instancia del modelo de SQLAlchemy con los datos que llegan
     nuevo_producto = models.Producto(
         nombre=producto.nombre,
         descripcion=producto.descripcion,
