@@ -211,7 +211,7 @@
             carrito.forEach(item => {
                 let subtotal = item.precio * item.cantidad;
                 total += subtotal;
-                mensaje += -` ${item.nombre} x${item.cantidad} ($${subtotal})\n`;
+                mensaje += ` ${item.nombre} x${item.cantidad} ($${subtotal})\n`;
             });
 
             mensaje + ` \n*Total a pagar:* $${total}`;
