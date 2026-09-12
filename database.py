@@ -3,15 +3,16 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# URL de conexión directa a tu base de datos permanente en Supabase (PostgreSQL)
-# Recuerda reemplazar [YOUR-PASSWORD] por la contraseña real que creaste en Supabase.
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:LavidaesbuenaDISFRUTA@db.dexyrfaoyhdudsamctqa.supabase.co:5432/postgres?sslmode=require"
-# Si prefieres usar variables de entorno para mayor seguridad, puedes descomentar la siguiente línea:
-# SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
+# Obtenemos la URL de la base de datos desde las variables de entorno de Render (Supabase)
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL
-)
+# Si por alguna razón no la encuentra localmente, puedes dejar una de respaldo, 
+# pero en producción Render usará la variable de entorno.
+if not DATABASE_URL:
+    DATABASE_URL = "postgresql://postgres:LavidaesbuenaDISFRUTA@aws-0-us-west-1.pooler.supabase.com:5432/postgres"
+
+# Creamos el engine único con su respectivo timeout de seguridad
+engine = create_engine(DATABASE_URL, connect_args={"connect_timeout": 10})
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
