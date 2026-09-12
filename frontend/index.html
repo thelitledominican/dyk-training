@@ -103,7 +103,7 @@
     <script>
         async function cargarProductos() {
             try {
-                const response = await fetch('https://dyk-training-1.onrender.com/productos/');
+                const response = await fetch('https://dyk-training.onrender.com/productos/');
                 const productos = await response.json();
                 
                 const contenedor = document.getElementById('productos-container');
