@@ -8,7 +8,7 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL:
     # URL actualizada con el formato correcto del pooler de Supabase (puerto 5432 / 6543 y usuario con identificador)
-    DATABASE_URL = "postgresql://postgres.dexyrfaoyhdudsamctqa:LavidaesbuenaDISFRUTA@aws-0-us-west-1.pooler.supabase.com:5432/postgres"
+    DATABASE_URL = "postgresql://postgres.dexyrfaoyhdudsamctqa:LavidaesbuenaDISFRUTA@aws-0-us-west-2.pooler.supabase.com:5432/postgres"
 
 # Creamos el engine con la URL corregida
 engine = create_engine(DATABASE_URL, connect_args={"connect_timeout": 10})
